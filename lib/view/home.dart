@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:radiobutton_provider/controller/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,38 +9,64 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: const Text("Radio Button")),
+        backgroundColor: Colors.teal,
+        title: const Center(
+            child: Text(
+          "Radio Button",
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+        )),
       ),
-      body: Column(
-        children: [
-          RadioListTile(
-            title: const Text(
-              "Male",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      body: Consumer<RadioButton>(
+        builder: (context, pro, child) => Column(
+          children: [
+            Card(
+              child: RadioListTile(
+                title: const Text(
+                  "Male",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                value: "Male",
+                groupValue: pro.selectvalue,
+                onChanged: (selectvalue) {
+                  pro.valuechanged(selectvalue.toString());
+                },
+              ),
             ),
-            value: "Male",
-            groupValue: "others",
-            onChanged: (value) {},
-          ),
-          RadioListTile(
-            title: const Text(
-              "Female",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Card(
+              child: RadioListTile(
+                title: const Text(
+                  "Female",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                value: "Female",
+                groupValue: pro.selectvalue,
+                onChanged: (selectvalue) {
+                  pro.valuechanged(selectvalue.toString());
+                },
+              ),
             ),
-            value: "Female",
-            groupValue: "others",
-            onChanged: (value) {},
-          ),
-          RadioListTile(
-            title: const Text(
-              "Others",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Card(
+              child: RadioListTile(
+                title: const Text(
+                  "Others",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                value: "others",
+                groupValue: pro.selectvalue,
+                onChanged: (selectvalue) {
+                  pro.valuechanged(selectvalue.toString());
+                },
+              ),
             ),
-            value: "others",
-            groupValue: "others",
-            onChanged: (value) {},
-          )
-        ],
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              pro.selectvalue,
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
       ),
     );
   }
